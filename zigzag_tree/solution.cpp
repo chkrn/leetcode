@@ -45,7 +45,7 @@ public:
 				}
 
 			fwd = !fwd;
-			rval.push_back(rvalElement);
+			rval.push_back(std::move(rvalElement));
 			curLevel = std::move(nextLevel);
 		}
 
