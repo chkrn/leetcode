@@ -44,21 +44,12 @@ public:
 		rval.resize(2, -1);
 
 		if(nums.size() == 0)
-			goto end;
-
-		if(nums.size() == 1) {
-			if(nums[0] == target)
-				rval[0] = rval[1] = 0;
-			
-			goto end;
-		}
+			return rval;
 
 		t = target;
 		find(nums, 0, nums.size());
 		rval[0] = left;
 		rval[1] = right;
-
-	end:
 		return rval;
 	}
 };
