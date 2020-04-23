@@ -1,5 +1,5 @@
 // https://leetcode.com/explore/interview/card/top-interview-questions-medium/110/sorting-and-searching/803/
-// WARNING! Simple solution for sorted intervals. Does not passes tests.
+// WARNING! Simple solution for sorted intervals. Does not passes all tests.
 
 class Solution {
 public:
