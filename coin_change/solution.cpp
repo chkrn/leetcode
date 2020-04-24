@@ -20,7 +20,7 @@ public:
 		stack[0].coinI = 0;
 		stack[0].amount = amount;
 
-		while(stack.size()) {
+		while(true) {
 			auto& cur = stack.back();
 
 			if(cur.coinI == coinsNum) {
@@ -37,7 +37,7 @@ public:
 			next.amount = cur.amount - coins[cur.coinI];
 
 			if(next.amount > 0) {
-				// Check if we already have not better path
+				// Check if we dont already have a better path
 				if(rval == -1 || rval > stack.size()) {
 					next.coinI = 0;
 					stack.push_back(next);
