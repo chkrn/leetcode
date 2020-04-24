@@ -1,5 +1,5 @@
 // https://leetcode.com/explore/interview/card/top-interview-questions-medium/111/dynamic-programming/809/
-// WARNING! Solution is slow, fails at test №130.
+// Passes all tests and faster than 98% solutions
 struct stackElement {
 	int coinI;
 	int amount;
@@ -37,14 +37,26 @@ public:
 			next.amount = cur.amount - coins[cur.coinI];
 
 			if(next.amount > 0) {
-				if( rval == -1
-				   || (
-					 rval > stack.size() + 1 //< Check if we dont already have a better solution
-					   //&&
-					   // (rval - stack.size()) * coins[cur.coinI] >= amount //< We need more expensive coins to beat current solution
-				  ) {
+				if( rval == -1 ||
+					(
+						// Check if we dont already have a better (less coins) solution
+						(rval > stack.size() + 1)
+						&&
+						// Check if its enough coins to beat current solution
+						( (rval - stack.size()) * coins[cur.coinI] ) >= cur.amount
+					)
+				  )
+				{
 					next.coinI = cur.coinI;
 					stack.push_back(next);
+					continue;
+				} else {
+					stack.pop_back();
+
+					if(!stack.size())
+						break;
+
+					stack.back().coinI++;
 					continue;
 				}
 			}
