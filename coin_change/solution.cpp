@@ -6,6 +6,15 @@ struct stackElement {
 };
 
 class Solution {
+private:
+	vector<stackElement> stack;
+	void backOnStack() {
+		stack.pop_back();
+				
+		if(stack.size())
+			stack.back().coinI++;
+	}
+
 public:
 	int coinChange(vector<int>& coins, int amount) {
 		if(amount == 0)
@@ -15,21 +24,15 @@ public:
 
 		int rval = -1;
 		int coinsNum = coins.size();
-		vector<stackElement> stack;
 		stack.resize(1);
 		stack[0].coinI = 0;
 		stack[0].amount = amount;
 
-		while(true) {
+		while(auto stackSize = stack.size()) {
 			auto& cur = stack.back();
 
 			if(cur.coinI == coinsNum) {
-				stack.pop_back();
-
-				if(!stack.size())
-					break;
-
-				stack.back().coinI++;
+				backOnStack();
 				continue;
 			}
 
@@ -40,10 +43,10 @@ public:
 				if( rval == -1 ||
 					(
 						// Check if we dont already have a better (less coins) solution
-						(rval > stack.size() + 1)
+						(rval > stackSize + 1)
 						&&
 						// Check if its enough coins to beat current solution
-						( (rval - stack.size()) * coins[cur.coinI] ) >= cur.amount
+						( (rval - stackSize) * coins[cur.coinI] ) >= cur.amount
 					)
 				  )
 				{
@@ -51,26 +54,16 @@ public:
 					stack.push_back(next);
 					continue;
 				} else {
-					stack.pop_back();
-
-					if(!stack.size())
-						break;
-
-					stack.back().coinI++;
+					backOnStack();
 					continue;
 				}
 			}
 
 			if(next.amount == 0) {
-				if(rval > stack.size() || rval == -1)
-					rval = stack.size();
+				if(rval > stackSize || rval == -1)
+					rval = stackSize;
 
-				stack.pop_back();
-
-				if(!stack.size())
-					break;
-
-				stack.back().coinI++;
+				backOnStack();
 				continue;
 			}
 
