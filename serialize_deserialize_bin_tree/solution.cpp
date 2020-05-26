@@ -1,5 +1,3 @@
-// https://leetcode.com/explore/interview/card/top-interview-questions-medium/112/design/812/
-
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -13,7 +11,7 @@ class Codec {
 public:
     void sStep(std::ostringstream& ss, TreeNode* node) {
         if(!node) {
-            ss << "null ";
+            ss << "n ";
             return;
         }
         
@@ -33,7 +31,7 @@ public:
     void dStep(std::istringstream& ss, TreeNode* & pNode) {
         std::string s;
         ss >> s;
-        if(s == "null") {
+        if(s[0] == 'n') {
             pNode = nullptr;
             return;
         }
